@@ -11,59 +11,30 @@ body {
 </style>
 {% endblock css %}
 
+{% block js %}
+{{block.super}}
+<script src="/static/js/login/login.js"></script>
+<script src="/static/js/todo/todo.js"></script>
+
+<script>
+    angular.module('myapp').config(['$routeProvider', function($routeProvider) {
+      $routeProvider.
+        when('/login', {templateUrl: '/static/js/login/login.html', controller: 'LoginCtrl'}).
+        when('/todo', {templateUrl: 'static/js/todo/todo.html', controller: 'TodoCtrl'}).
+        otherwise({redirectTo: '/login'});
+    }]);
+</script>
+{% endblock js %}
+
 {% block page_title %}Your Site - Home{% endblock %}
 {% block page_class %}home-page{% endblock %}
 {% block content %}
 <!-- This code is taken from http://getbootstrap.com/examples/jumbotron/ -->
 
-<div class="container">
 
-  <form class="form-signin" role="form">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">
-    <input type="password" class="form-control" placeholder="Password" required="">
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  </form>
-
+<div ng-app="myapp">
+    <div ng-view></div>
 </div>
 
-<div class="container todo">
-    <div>
-      <label>Nova tarefa:</label>
-      <input type="text">
-    </div>
-    <table class="table table-striped table-bordered todotable">
-      <tr>
-        <td class="todocheck"><input type="checkbox"></td>
-        <td>Lavar a roupa</td>
-        <td class="todoremove"><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-      </tr>
-      <tr>
-        <td class="todocheck"><input type="checkbox" checked></td>
-        <td class="tododone">Levar a cachorra pra passear</td>
-        <td class="todoremove"><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-      </tr>
-      <tr>
-        <td class="todocheck"><input type="checkbox"></td>
-        <td>Fazer supermercado</td>
-        <td class="todoremove"><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-      </tr>
-      <tr>
-        <td class="todocheck"><input type="checkbox" checked></td>
-        <td class="tododone">Trocar a fralda do neném</td>
-        <td class="todoremove"><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-      </tr>
-      <tr>
-        <td class="todocheck"><input type="checkbox"></td>
-        <td>Consertar o chuveiro</td>
-        <td class="todoremove"><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-      </tr>
-    </table>
-</div>
 
 {% endblock %}
